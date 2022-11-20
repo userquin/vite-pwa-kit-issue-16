@@ -23,6 +23,24 @@ if (import.meta.env.DEV) {
 }
 
 if (import.meta.env.PROD) {
+	registerRoute(new NavigationRoute(createHandlerBoundToURL('/sw')));
+	registerRoute(
+		({ request }) =>
+			request.destination === 'style'
+			|| request.destination === 'manifest'
+			|| request.destination === 'script'
+			|| request.destination === 'worker'
+			|| request.destination === 'image',
+		async ({ request }) => {
+			const url = new URL(request.url);
+			const idx = url.pathname.indexOf('/_app/');
+			if (idx > 0) {
+				return caches.match(url.pathname.slice(idx + 1));
+			}
+			return await fetch(request);
+		}
+	)
+/*
 	if (import.meta.env.PROD) {
 		const notFoundFallbackHandler = async ({event}) => {
 			const fetchResponse = await fetch(event.request);
@@ -39,4 +57,5 @@ if (import.meta.env.PROD) {
 			notFoundFallbackHandler,
 		)
 	}
+*/
 }

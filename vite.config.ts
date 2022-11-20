@@ -24,6 +24,7 @@ const config: UserConfig = {
 				name: 'freispace',
 				description: 'Your supercharged resource and project management.',
 				start_url: '/dashboard?source=pwa',
+				id: '/',
 				scope: '/',
 				display: 'standalone',
 				theme_color: '#006aa3',
