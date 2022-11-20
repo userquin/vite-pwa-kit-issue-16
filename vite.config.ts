@@ -11,13 +11,14 @@ const config: UserConfig = {
 		sveltekit(),
 		SvelteKitPWA({
 			srcDir: './src',
+			useCredentials: true,
 			mode: process.env.NODE_ENV as 'development' | 'production',
 			strategies: 'injectManifest',
 			filename: 'sw.ts',
 			scope: '/',
 			base: '/',
 			injectRegister: 'script',
-			includeAssets: ['favicon.ico', 'apple-touch-icon.png', '/img/mask-icon.svg'],
+			includeManifestIcons: false,
 			manifest: {
 				short_name: 'freispace',
 				name: 'freispace',

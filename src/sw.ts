@@ -17,8 +17,26 @@ precacheAndRoute(self.__WB_MANIFEST);
 // clean old assets
 cleanupOutdatedCaches();
 
-let allowlist: undefined | RegExp[];
-if (import.meta.env.DEV) allowlist = [/^\/$/];
+if (import.meta.env.DEV) {
+	// to allow work offline
+	registerRoute(new NavigationRoute(createHandlerBoundToURL('/'), { allowlist: [/^\/$/] }));
+}
 
-// to allow work offline
-registerRoute(new NavigationRoute(createHandlerBoundToURL('/sw'), { allowlist }));
+if (import.meta.env.PROD) {
+	if (import.meta.env.PROD) {
+		const notFoundFallbackHandler = async ({event}) => {
+			const fetchResponse = await fetch(event.request);
+			if (!fetchResponse || fetchResponse.status === 404) {
+				return caches.match('/sw');
+			} else {
+				return fetchResponse;
+			}
+		};
+		registerRoute(
+			({ request }) => {
+				return request.mode === 'navigate'
+			},
+			notFoundFallbackHandler,
+		)
+	}
+}

@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@playwright/test": "1.28.0",
 		"@rollup/plugin-replace": "^5.0.1",
+		"@sveltejs/adapter-node": "1.0.0-next.100",
 		"@sveltejs/kit": "1.0.0-next.553",
 		"@types/workbox-build": "^5.0.1",
 		"@typescript-eslint/eslint-plugin": "^5.43.0",
@@ -38,8 +39,7 @@
 		"vite-plugin-pwa": "^0.13.3",
 		"workbox-precaching": "^6.5.4",
 		"workbox-routing": "^6.5.4",
-		"workbox-window": "^6.5.4",
-		"@sveltejs/adapter-node": "1.0.0-next.100"
+		"workbox-window": "^6.5.4"
 	},
 	"type": "module"
 }
